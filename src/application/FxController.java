@@ -8,12 +8,19 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class FxController implements Initializable{
 	
@@ -27,14 +34,17 @@ public class FxController implements Initializable{
 	private TextField duration;
 	@FXML
 	private TextField seed;
+	@FXML
+	private Button result;
+	@FXML
+	private Button browse;
 	
 	public static String python = "/usr/bin/python3.6";
 	public static String directory;
 	public static String filePath;
 	final FileChooser fileChooser = new FileChooser();
 	private BufferedReader bufRead;
-	private Process process;
-	
+	private Process process, process2;
     @FXML
     private void handleRunButtonAction(ActionEvent event) {
     	
@@ -42,6 +52,7 @@ public class FxController implements Initializable{
 			
 			@Override
 			public void run() {
+				
 				String s = null;
 		        try {
 		        	String command = python+" "+directory+"/install_app.py";
@@ -53,6 +64,13 @@ public class FxController implements Initializable{
 		            while ((s = stdInput.readLine()) != null) {
 		                System.out.println(s);
 		            }
+		            
+		            String command2 = python+" "+directory+"/install_app.py";
+		            process2 = Runtime.getRuntime().exec(command);
+		            
+		            String command3 = python+" "+directory+"/test.py";
+		            process = Runtime.getRuntime().exec(command);
+		            
 		        }
 		        catch (IOException e) {
 		        	System.out.println("exception happened: ");
@@ -76,13 +94,25 @@ public class FxController implements Initializable{
 	}
     
     @FXML
-    private void handleBeowseButtonAction() {
-    	File file = fileChooser.showOpenDialog(Main.Pstage);
+    private void handleBrowseButtonAction() {
+    	File file = fileChooser.showOpenDialog(browse.getScene().getWindow());
         if (file != null) {
             openFile(file);
         }
 		
 	}
+    
+    @FXML
+    private void handleResultButtonAction(ActionEvent event) throws IOException{
+    	Parent root = FXMLLoader.load(getClass().getResource("resultDisplayView.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(scene);
+        stage.show();
+        
+        result.getScene().getWindow().hide();
+    }
     
     private void openFile(File file) {
         try {

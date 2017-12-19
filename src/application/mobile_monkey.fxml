@@ -52,8 +52,8 @@
             <Button fx:id="save" layoutX="27.0" layoutY="261.0" mnemonicParsing="false" text="Save" />
             <Button fx:id="stop" layoutX="110.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleStopButtonAction" text="Stop" />
             <Button fx:id="run" layoutX="191.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleRunButtonAction" text="Run Test" />
-            <Button fx:id="result" layoutX="296.0" layoutY="260.0" mnemonicParsing="false" text="Result" />
-            <Button fx:id="browse" layoutX="394.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleBeowseButtonAction" text="Browse" />
+            <Button fx:id="result" layoutX="296.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleResultButtonAction" text="Result" />
+            <Button fx:id="browse" layoutX="394.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleBrowseButtonAction" text="Browse" />
       </children>
     </AnchorPane>
   </children>

@@ -10,19 +10,13 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
 	
-	public static Stage Pstage;
 	@Override
 	public void start(Stage stage) throws IOException{
-		Pstage = stage;
 		Parent root = FXMLLoader.load(getClass().getResource("mobile_monkey.fxml"));
 	    Scene scene = new Scene(root);
 	    stage.setScene(scene);
 	    stage.setTitle("Mobile Monkey");
 	    stage.show();
-	}
-	
-	public Stage getStage() {
-		return Pstage;
 	}
 	
 	public static void main(String[] args) {
