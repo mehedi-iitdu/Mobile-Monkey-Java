@@ -44,6 +44,7 @@ public class FxController implements Initializable{
 	public static String filePath;
 	public static String logaddress;
 	public static String package_name;
+	public static String root;
 	final FileChooser fileChooser = new FileChooser();
 	private BufferedReader bufRead;
 	private Process process, process2;
@@ -165,13 +166,16 @@ public class FxController implements Initializable{
         	    if(array[0].equals("apk_name")) {
         	    	package_name = array[1];
         	    }
+        	    if(array[0].equals("root")) {
+        	    	root = array[1];
+        	    }
         	    
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
     	}
     	
-    	logaddress = "/home/mehedi/"+package_name + ".log";
+    	logaddress = root+"/"+package_name + "_.log";
     	
     	System.out.println(logaddress);
     	

@@ -43,7 +43,7 @@ public class ResultDisplayController {
                 	
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     	
-                    	leftListOptionSelectedText.setText(newValue);
+                    	//leftListOptionSelectedText.setText(newValue);
                     	
                     	if(!rightItems.isEmpty())rightItems.clear();
 						
@@ -62,6 +62,7 @@ public class ResultDisplayController {
                     	
                     	try {
                     		String myLine;
+                    		String errorSets = null;
                     		
 							while ( (myLine = reader.readLine()) != null)
 							{
@@ -70,6 +71,7 @@ public class ResultDisplayController {
 										String[] array = myLine.split("E ");
 										String[] array2 = array[1].split(":");
 										rightItems.add(array2[0]);
+										errorSets = errorSets+ "\n"+array2[1];
 									}
 		                    	}
 								
@@ -78,6 +80,7 @@ public class ResultDisplayController {
 										String[] array = myLine.split("W ");
 										String[] array2 = array[1].split(":");
 										rightItems.add(array2[0]);
+										errorSets = errorSets+ "\n"+array2[1];
 									}
 		                    	}
 								
@@ -86,10 +89,14 @@ public class ResultDisplayController {
 										String[] array = myLine.split("F ");
 										String[] array2 = array[1].split(":");
 										rightItems.add(array2[0]);
+										errorSets = errorSets+ "\n"+array2[1];
 									}
 		                    	}
 								
 							}
+							
+							rightListOptionSelectedText.setText(errorSets);
+							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -101,14 +108,14 @@ public class ResultDisplayController {
         		
         );
         
-        rightListView.getSelectionModel().selectedItemProperty().addListener(
+/*        rightListView.getSelectionModel().selectedItemProperty().addListener(
         			new ChangeListener<String>() {
                 	
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     	rightListOptionSelectedText.setText(newValue);
                     	}
                     }
-        );
+        );*/
     }
 
 }
