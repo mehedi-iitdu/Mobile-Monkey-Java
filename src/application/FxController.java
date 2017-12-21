@@ -42,6 +42,8 @@ public class FxController implements Initializable{
 	public static String python = "/usr/bin/python3.6";
 	public static String directory;
 	public static String filePath;
+	public static String logaddress;
+	public static String package_name;
 	final FileChooser fileChooser = new FileChooser();
 	private BufferedReader bufRead;
 	private Process process, process2;
@@ -65,18 +67,29 @@ public class FxController implements Initializable{
 		                System.out.println(s);
 		            }
 		            
-		            String command2 = python+" "+directory+"/install_app.py";
-		            process2 = Runtime.getRuntime().exec(command);
+		            process.waitFor();
 		            
-		            String command3 = python+" "+directory+"/test.py";
-		            process = Runtime.getRuntime().exec(command);
+		            
+		            String command2 = python+" "+directory+"/test.py";
+		            process2 = Runtime.getRuntime().exec(command2);
+		            
+		            stdInput = new BufferedReader(new 
+			                InputStreamReader(process2.getInputStream()));
+		            
+		            while ((s = stdInput.readLine()) != null) {
+		                System.out.println(s);
+		            }
+		            
 		            
 		        }
 		        catch (IOException e) {
 		        	System.out.println("exception happened: ");
 		            e.printStackTrace();
 		            System.exit(-1);
-		        }
+		        } catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		}).start();
@@ -84,6 +97,7 @@ public class FxController implements Initializable{
     
     @FXML
     private void handleStopButtonAction(ActionEvent event) {
+    	process2.destroy();
 		process.destroy();
 		try {
 			String command = python+" "+directory+"/kill_emulator.py";
@@ -148,11 +162,18 @@ public class FxController implements Initializable{
         	    if(array[0].equals("duration")) {
         	    	duration.setText(array[1]);
         	    }
+        	    if(array[0].equals("apk_name")) {
+        	    	package_name = array[1];
+        	    }
         	    
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
     	}
+    	
+    	logaddress = "/home/mehedi/"+package_name + ".log";
+    	
+    	System.out.println(logaddress);
     	
     	input.close();
 		
