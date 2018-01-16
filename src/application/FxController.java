@@ -43,6 +43,7 @@ public class FxController implements Initializable{
 	public static String directory;
 	public static String filePath;
 	public static String logaddress;
+	public static String eventLog;
 	public static String package_name;
 	public static String root;
 	final FileChooser fileChooser = new FileChooser();
@@ -122,7 +123,7 @@ public class FxController implements Initializable{
     	Parent root = FXMLLoader.load(getClass().getResource("resultDisplayView.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
-        stage.setTitle("FXML Welcome");
+        stage.setTitle("Mobile Monkey Result");
         stage.setScene(scene);
         stage.show();
         
@@ -176,6 +177,7 @@ public class FxController implements Initializable{
     	}
     	
     	logaddress = root+"/"+package_name + "_.log";
+    	eventLog = root+"/EventLog";
     	
     	System.out.println(logaddress);
     	
